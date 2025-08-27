@@ -1,15 +1,18 @@
 <?php
+function conexion() {
+    $host = "dpg-d2nmblmmcj7s73cov840-a.oregon-postgres.render.com";
+    $port = "5432";
+    $dbname = "exampledbrnube2";
+    $user = "exampledbrnube2_user";
+    $password = "cQWzk0g9Uc327yLZC2yz7htjjT2UvnN2";
 
-	function conexion(){
+    // Render requiere SSL
+    $conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password sslmode=require");
 
-	$host = "host=@dpg-d2nmblmmcj7s73cov840-a.oregon-postgres.render.com";
-	$port = "port=5432";
-	$dbname = "dbname=exampledbrnube2";
-	$user = "user=exampledbrnube2_user";
-	$password = "password=cQWzk0g9Uc327yLZC2yz7htjjT2UvnN2";
+    if (!$conn) {
+        die("❌ Error de conexión: " . pg_last_error());
+    }
 
-	$db = pg_connect("$host $port $dbname $user $password");
-
-	return $db;
+    return $conn;
 }
 ?>
